@@ -57,10 +57,8 @@ def main(args):
     """Run the program."""
 
     dset = xr.open_dataset(args.pr_file)
-    
     clim = dset['pr'].groupby('time.season').mean('time', keep_attrs=True)
     clim = convert_pr_units(clim)
-
     create_plot(clim, dset.attrs['source_id'], args.season)
     
     new_log = cmdprov.new_log(infile_logs={args.pr_file: dset.attrs['history']})
